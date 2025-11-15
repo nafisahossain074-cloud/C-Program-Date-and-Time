@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <time.h>
+
+int main() {
+    time_t t = time(NULL);
+    struct tm *tm_info = gmtime(&t);
+
+    int day = tm_info->tm_mday;
+    int month = tm_info->tm_mon + 1;
+    int year = tm_info->tm_year + 1900;
+    int hour = tm_info->tm_hour + 6;
+    if(hour >= 24) hour -= 24;
+    int minute = tm_info->tm_min;
+    int second = tm_info->tm_sec;
+
+    char period[3];
+    if(hour >= 12) {
+        snprintf(period, sizeof(period), "PM");
+        if(hour > 12) hour -= 12;
+    } else {
+        snprintf(period, sizeof(period), "AM");
+        if(hour == 0) hour = 12;
+    }
+
+    printf("Current Date (Bangladesh): %02d/%02d/%04d\n", day, month, year);
+    printf("Current Time (Bangladesh): %02d:%02d:%02d %s\n", hour, minute, second, period);
+
+    return 0;
+}
