@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <time.h>
+
+int main() {
+    time_t t = time(NULL);
+    struct tm *gmt = gmtime(&t);
+
+    int b_hour = gmt->tm_hour + 6;
+    int b_min = gmt->tm_min;
+    int b_sec = gmt->tm_sec;
+
+    if(b_hour >= 24) b_hour -= 24;
+
+    int g_hour = b_hour - 6;
+    int g_min = b_min;
+    int g_sec = b_sec;
+    if(g_hour < 0) g_hour += 24;
+
+    printf("Bangladesh Time : %02d:%02d:%02d\n", b_hour, b_min, b_sec);
+    printf("GMT Time        : %02d:%02d:%02d\n", g_hour, g_min, g_sec);
+
+    return 0;
+}
